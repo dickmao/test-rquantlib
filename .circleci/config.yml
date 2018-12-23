@@ -5,6 +5,8 @@ jobs:
       - image: circleci/buildpack-deps:18.04-curl
     steps:
       - checkout
+      - restore_cache:
+          key: 1.14
       - run: 
           command: |
             set -xe
@@ -17,9 +19,12 @@ jobs:
               curl -skL https://github.com/lballabio/QuantLib/releases/download/QuantLib-v1.14/QuantLib-1.14.tar.gz | tar zxf -
               (cd QuantLib-1.14 ; ./autogen.sh ; ./configure --prefix=$HOME/.local --enable-intraday ; make install)
             fi
-      - restore_cache:
-          key: 1.14
+            # curl -skL https://github.com/eddelbuettel/rquantlib/archive/master.zip -o rquantlib.zip
+            # unzip -o rquantlib.zip
+            # rm -f rquantlib.zip
+            # (cd rquantlib-master ; R CMD build . ; sudo R CMD INSTALL RQuantLib*.gz)
+            # (cd rquantlib-master/tests ; LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local Rscript RQuantlib.R)
       - save_cache:
           key: 1.14
           paths: 
-            - "$HOME/.local"
+            - $HOME/.local
