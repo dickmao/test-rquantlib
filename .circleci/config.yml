@@ -15,13 +15,13 @@ jobs:
             mkdir -p $HOME/.local
             if [ ! -d "$HOME/.local/lib" ] ; then 
               curl -skL https://github.com/lballabio/QuantLib/releases/download/QuantLib-v1.14/QuantLib-1.14.tar.gz | tar zxf -
-              (cd QuantLib-v1.14 ; ./autogen.sh ; ./configure --prefix=$HOME/.local --enable-intraday ; make install)
+              (cd $CIRCLE_WORKING_DIRECTORY/QuantLib-v1.14 ; ./autogen.sh ; ./configure --prefix=$HOME/.local --enable-intraday ; make install)
             fi
             curl -skL https://github.com/eddelbuettel/rquantlib/archive/master.zip -o rquantlib.zip
             unzip -o rquantlib.zip
             rm -f rquantlib.zip
-            (cd rquantlib-master ; R CMD build . ; sudo R CMD INSTALL RQuantLib*.gz)
-            (cd rquantlib-master/tests ; LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local Rscript RQuantlib.R)
+            (cd $CIRCLE_WORKING_DIRECTORY/rquantlib-master ; R CMD build . ; sudo R CMD INSTALL RQuantLib*.gz)
+            (cd $CIRCLE_WORKING_DIRECTORY/rquantlib-master/tests ; LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local Rscript RQuantlib.R)
       - restore_cache:
           key: 1.14
       - save_cache:
