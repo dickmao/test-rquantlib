@@ -27,4 +27,4 @@ jobs:
       - save_cache:
           key: v1.14
           paths: 
-            - $HOME/.local
+            - ~/.local
