@@ -9,7 +9,7 @@ jobs:
           command: |
             set -xe
             sudo apt-get -yq update
-            sudo apt-get -yq install r-base
+            sudo apt-get -yq install r-base libboost-all-dev
             sudo apt-get clean
             sudo rm -rf /var/lib/apt/lists/*
             mkdir -p $HOME/.local
