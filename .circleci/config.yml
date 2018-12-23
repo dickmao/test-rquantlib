@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 1.14
+          key: v1.14
       - run: 
           command: |
             set -xe
@@ -25,6 +25,6 @@ jobs:
             # (cd rquantlib-master ; R CMD build . ; sudo R CMD INSTALL RQuantLib*.gz)
             # (cd rquantlib-master/tests ; LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local Rscript RQuantlib.R)
       - save_cache:
-          key: 1.14
+          key: v1.14
           paths: 
             - $HOME/.local
