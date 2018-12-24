@@ -23,7 +23,7 @@ jobs:
             curl -skL https://github.com/eddelbuettel/rquantlib/archive/master.zip -o rquantlib.zip
             unzip -o rquantlib.zip
             rm -f rquantlib.zip
-#            (cd rquantlib-master ; R CMD build . ; sudo R CMD INSTALL RQuantLib*.gz)
+            # (cd rquantlib-master ; R CMD build . ; sudo R CMD INSTALL RQuantLib*.gz)
             (cd rquantlib-master/tests ; LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local Rscript RQuantlib.R)
       - save_cache:
           key: v1.14
